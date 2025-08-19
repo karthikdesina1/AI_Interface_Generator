@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - AI Platform Builder</title>
+  <link rel="icon" href="data:,">
+  <script src="https://cdn.tailwindcss.com/3.4.10"></script>
+  <style>img,video,iframe{max-width:100%;height:auto}</style>
+</head>
+<body class="bg-gray-100 text-gray-900 min-h-screen overflow-x-hidden flex flex-col">
+  <div id="header"></div>
+
+  <main id="main" class="flex-grow flex items-center justify-center p-6">
+    <div class="bg-white shadow-xl rounded-lg p-8 w-full max-w-sm">
+      <h2 class="text-2xl font-bold text-center mb-6 text-blue-700">Sign In to Your Account</h2>
+      <form novalidate>
+        <div class="mb-4">
+          <label for="loginEmail" class="block text-gray-700 font-medium mb-2">Email</label>
+          <input id="loginEmail" type="email" autocomplete="email"
+                 class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400"
+                 placeholder="you@email.com" required>
+        </div>
+        <div class="mb-6">
+          <label for="loginPassword" class="block text-gray-700 font-medium mb-2">Password</label>
+          <input id="loginPassword" type="password" autocomplete="current-password"
+                 class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400"
+                 placeholder="••••••••" required>
+        </div>
+        <button type="submit"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded transition
+                       focus:outline-none focus:ring-2 focus:ring-blue-200">
+          Login
+        </button>
+      </form>
+      <div class="text-center text-gray-600 mt-4">
+        Don't have an account?
+        <a href="Signup.html" class="text-blue-600 hover:underline font-medium">Sign Up</a>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="/src/scripts/headerMenu.js"></script>
+  <script>
+    async function inject(id, url) {
+      const el = document.getElementById(id);
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(url + ' -> ' + res.status + ' ' + res.statusText);
+        el.innerHTML = await res.text();
+      } catch (e) {
+        console.error('Inject failed:', e);
+        el.innerHTML =
+          '<div role="alert" aria-live="assertive" class="mt-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded p-3">Failed to load ' +
+          url + '.</div>';
+      }
+    }
+
+    (async () => {
+      await inject('header', 'src/components/Header.html');  initHeaderMenu();
+      await inject('footer', 'src/components/Footer.html');
+    })();
+  </script>
+</body>
+</html>
