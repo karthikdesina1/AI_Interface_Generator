@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prompt Library</title>
+  <link rel="icon" href="data:,">
+  <script src="https://cdn.tailwindcss.com/3.4.10"></script>
+  <style>img,video,iframe{max-width:100%;height:auto}</style>
+</head>
+<body class="bg-gray-100 text-gray-900 min-h-screen overflow-x-hidden flex flex-col">
+  <div id="header"></div>
+
+  <main id="main" class="flex-grow max-w-6xl mx-auto w-full p-6">
+    <h1 class="text-3xl font-bold mb-6 text-center">PROMPT LIBRARY</h1>
+    <div id="searchBarContainer" class="mb-6"></div>
+    <div id="promptGridContainer"></div>
+  </main>
+
+  <div id="footer"></div>
+
+  <div id="sampleModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40 hidden">
+    <div class="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 relative">
+      <button id="closeModalBtn" class="absolute top-2 right-2 text-2xl text-gray-400 hover:text-gray-600" aria-label="Close modal">&times;</button>
+      <h3 class="text-lg font-semibold mb-2">Sample Output</h3>
+      <div id="modalSampleContent" class="bg-gray-900 text-white p-4 rounded font-mono text-sm overflow-x-auto"></div>
+    </div>
+  </div>
+
+  <script src="/src/scripts/promptLibrary.js"></script>
+  <script src="/src/scripts/headerMenu.js"></script>
+  <script>
+    async function inject(id, url) {
+      const el = document.getElementById(id);
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(url + ' -> ' + res.status + ' ' + res.statusText);
+        el.innerHTML = await res.text();
+      } catch (e) {
+        console.error('Inject failed:', e);
+        el.innerHTML =
+          '<div role="alert" aria-live="assertive" class="mt-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded p-3">Failed to load ' +
+          url + '.</div>';
+      }
+    }
+
+    (async () => {
+      await inject('header', 'src/components/Header.html');  initHeaderMenu();
+      await inject('footer', 'src/components/Footer.html');
+      await inject('searchBarContainer', 'src/components/SearchBar.html');
+      // Grid is rendered by promptLibrary.js
+    })();
+  </script>
+</body>
+</html>

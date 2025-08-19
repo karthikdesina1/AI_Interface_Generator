@@ -1,0 +1,53 @@
+<!-- GeneratorForm Component -->
+<section id="generatorFormSection" class="w-full">
+  <form id="generatorForm"
+        class="w-full max-w-xl xl:max-w-2xl mx-auto lg:mx-0 space-y-4"
+        autocomplete="off"
+        onsubmit="return false">
+
+    <label for="promptInput" class="block text-sm font-medium text-gray-700">
+      Enter Prompt
+    </label>
+
+    <textarea
+      id="promptInput"
+      name="prompt"
+      rows="4"
+      minlength="10"
+      required
+      aria-invalid="false"
+      aria-describedby="errorText"
+      class="w-full h-32 p-4 rounded-xl border border-gray-300 bg-white
+             text-sm md:text-base !text-left leading-normal
+             placeholder:text-gray-400
+             focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400
+             resize-none"
+      placeholder="Create a responsive navbar"></textarea>
+
+    <div>
+      <button
+        id="generateBtn"
+        type="button"
+        aria-busy="false"
+        class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold
+               py-2 px-4 rounded-xl transition flex items-center justify-center
+               disabled:opacity-60 disabled:cursor-not-allowed relative">
+        <span id="btnText">Generate Code</span>
+        <span id="spinner" class="hidden ml-2" aria-hidden="true">
+          <svg class="w-4 h-4 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a 8 8 0 0 1 8-8v4a4 4 0 0 0-4 4H4z"></path>
+          </svg>
+          <span class="sr-only">Generating…</span>
+        </span>
+      </button>
+    </div>
+
+    <p id="errorText"
+       class="text-red-600 text-sm hidden"
+       role="alert"
+       aria-live="polite">
+      Please enter a valid prompt (min 10 characters).
+    </p>
+  </form>
+</section>

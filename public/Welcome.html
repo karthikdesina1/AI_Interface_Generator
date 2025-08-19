@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Welcome • Prompt Generator</title>
+  <link rel="icon" href="data:,">
+  <script src="https://cdn.tailwindcss.com/3.4.10"></script>
+  <style>img,video,iframe{max-width:100%;height:auto}</style>
+</head>
+<body class="bg-gray-100 text-gray-900 min-h-screen overflow-x-hidden flex flex-col">
+  <div id="header"></div>
+
+  <main id="main" class="flex-grow">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <section class="bg-white rounded-2xl shadow-xl p-8 md:p-12 max-w-5xl mx-auto text-center">
+        <h1 class="mx-auto max-w-4xl text-3xl md:text-4xl font-extrabold leading-tight tracking-tight text-gray-900">
+          AI-Powered Dynamic Platform Builder
+        </h1>
+
+        <p class="mx-auto mt-4 max-w-2xl text-gray-600 text-base md:text-lg">
+          Generate clean, responsive UI snippets instantly. Test it on mobile, tablet, and desktop.
+        </p>
+
+        <div class="mt-8 flex justify-center">
+          <a href="CodeGenerator.html"
+             class="inline-flex items-center justify-center rounded-xl bg-blue-600 text-white px-5 py-3
+                    font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-200">
+            Get Started
+          </a>
+        </div>
+
+        <!-- ✅ Restored WHY section -->
+        <div class="mt-12">
+          <h2 class="text-xl md:text-2xl font-semibold text-gray-900">
+            Why use the Prompt Library?
+          </h2>
+          <ul class="mt-4 mx-auto inline-block text-left max-w-2xl list-disc list-inside space-y-2 text-gray-700">
+            <li>Jump start your projects with ready-made prompts.</li>
+            <li>Find inspiration for any use case.</li>
+            <li>Copy &amp; generate in one click!</li>
+          </ul>
+        </div>
+
+        <!-- CTA matches primary button -->
+        <div id="ctaButton" class="mt-10"></div>
+      </section>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="/src/scripts/headerMenu.js"></script>
+  <script>
+    async function inject(id, url) {
+      const el = document.getElementById(id);
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(url + ' -> ' + res.status + ' ' + res.statusText);
+        el.innerHTML = await res.text();
+      } catch (e) {
+        console.error('Inject failed:', e);
+        el.innerHTML =
+          '<div role="alert" aria-live="assertive" class="mt-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded p-3">Failed to load ' +
+          url + '.</div>';
+      }
+    }
+    (async () => {
+      await inject('header', 'src/components/Header.html');  initHeaderMenu();
+      await inject('footer', 'src/components/Footer.html');
+      await inject('ctaButton', 'src/components/CTAButton.html');
+    })();
+  </script>
+</body>
+</html>
